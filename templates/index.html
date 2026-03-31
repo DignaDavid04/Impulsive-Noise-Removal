@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Noise Remover — Impulsive Noise Removal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Animated Background -->
+    <div class="bg-effects">
+        <div class="bg-gradient-orb bg-orb-1"></div>
+        <div class="bg-gradient-orb bg-orb-2"></div>
+        <div class="bg-gradient-orb bg-orb-3"></div>
+        <div class="bg-grid"></div>
+    </div>
+
+    <!-- Floating Particles -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="nav-brand">
+                    <div class="brand-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 18V5l12-2v13"/>
+                            <circle cx="6" cy="18" r="3"/>
+                            <circle cx="18" cy="16" r="3"/>
+                        </svg>
+                    </div>
+                    <span class="brand-text">NoiseRemover</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#how-it-works" class="nav-link">How It Works</a>
+                    <a href="https://github.com/DignaDavid04/Impulsive-Noise-Removal" class="nav-link nav-link-github" target="_blank">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        GitHub
+                    </a>
+                </div>
+            </nav>
+
+            <div class="hero">
+                <div class="hero-badge">
+                    <span class="badge-dot"></span>
+                    Powered by Adaptive AR Modeling
+                </div>
+                <h1 class="hero-title">
+                    Remove <span class="text-gradient">Impulsive Noise</span><br>
+                    from Music Recordings
+                </h1>
+                <p class="hero-description">
+                    Upload any audio file and our algorithm will automatically detect and remove 
+                    clicks, pops, and crackle using real-time adaptive signal processing.
+                </p>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="hero-stat-value">6+</span>
+                        <span class="hero-stat-label">Audio Formats</span>
+                    </div>
+                    <div class="hero-stat-divider"></div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-value">AR(4)</span>
+                        <span class="hero-stat-label">Model Order</span>
+                    </div>
+                    <div class="hero-stat-divider"></div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-value">EW-LS</span>
+                        <span class="hero-stat-label">Algorithm</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="pipeline">
+                <div class="pipeline-step">
+                    <div class="pipeline-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                        </svg>
+                    </div>
+                    <h4>Upload</h4>
+                    <p>Drop your audio file</p>
+                </div>
+                <div class="pipeline-arrow">→</div>
+                <div class="pipeline-step">
+                    <div class="pipeline-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                        </svg>
+                    </div>
+                    <h4>Detect</h4>
+                    <p>AR model finds clicks</p>
+                </div>
+                <div class="pipeline-arrow">→</div>
+                <div class="pipeline-step">
+                    <div class="pipeline-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 20h9"/>
+                            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                        </svg>
+                    </div>
+                    <h4>Clean</h4>
+                    <p>Interpolate bad samples</p>
+                </div>
+                <div class="pipeline-arrow">→</div>
+                <div class="pipeline-step">
+                    <div class="pipeline-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                    </div>
+                    <h4>Download</h4>
+                    <p>Get your clean audio</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container main-content">
+
+        <!-- Upload Section -->
+        <section class="glass-card upload-section" id="upload-section">
+            <div class="card-glow"></div>
+            <div class="card-content">
+                <div class="section-header">
+                    <div class="section-number">01</div>
+                    <div>
+                        <h2 class="section-title">Upload Your Audio</h2>
+                        <p class="section-subtitle">Select a file to remove impulsive noise</p>
+                    </div>
+                </div>
+
+                <form id="upload-form" enctype="multipart/form-data">
+                    <!-- Drag & Drop Zone -->
+                    <div class="drop-zone" id="drop-zone">
+                        <div class="drop-zone-bg"></div>
+                        <div class="drop-zone-content">
+                            <div class="drop-icon-wrapper">
+                                <div class="drop-icon-ring"></div>
+                                <svg class="drop-icon-svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <polyline points="17 8 12 3 7 8"/>
+                                    <line x1="12" y1="3" x2="12" y2="15"/>
+                                </svg>
+                            </div>
+                            <p class="drop-text">Drag & drop your audio file here</p>
+                            <p class="drop-subtext">or <span class="drop-browse">click to browse</span></p>
+                            <div class="drop-formats">
+                                <span class="format-tag">WAV</span>
+                                <span class="format-tag">MP3</span>
+                                <span class="format-tag">FLAC</span>
+                                <span class="format-tag">OGG</span>
+                                <span class="format-tag">AAC</span>
+                                <span class="format-tag">M4A</span>
+                            </div>
+                        </div>
+                        <input type="file" id="audio-file" name="audio_file"
+                               accept=".wav,.mp3,.ogg,.flac,.aac,.m4a,.wma,.opus" hidden>
+                    </div>
+
+                    <!-- File Info -->
+                    <div class="file-info" id="file-info" style="display: none;">
+                        <div class="file-info-content">
+                            <div class="file-icon-wrapper">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 18V5l12-2v13"/>
+                                    <circle cx="6" cy="18" r="3"/>
+                                    <circle cx="18" cy="16" r="3"/>
+                                </svg>
+                            </div>
+                            <div class="file-details">
+                                <span class="file-name" id="file-name"></span>
+                                <span class="file-size" id="file-size"></span>
+                            </div>
+                            <button type="button" class="btn-remove" id="remove-file" title="Remove file">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="18" y1="6" x2="6" y2="18"/>
+                                    <line x1="6" y1="6" x2="18" y2="18"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Parameters -->
+                    <div class="parameters-section">
+                        <div class="params-header">
+                            <div class="params-header-left">
+                                <div class="section-number small">02</div>
+                                <div>
+                                    <h3 class="params-title">Algorithm Parameters</h3>
+                                    <p class="params-subtitle">Fine-tune the detection sensitivity</p>
+                                </div>
+                            </div>
+                            <button type="button" class="btn-toggle" id="toggle-params">
+                                <span class="toggle-text">Advanced</span>
+                                <svg class="toggle-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9"/>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="params-grid" id="params-grid" style="display: none;">
+                            <div class="param-card">
+                                <div class="param-header">
+                                    <label for="ar-order">AR Model Order</label>
+                                    <span class="param-symbol">r</span>
+                                </div>
+                                <input type="number" id="ar-order" name="ar_order"
+                                       value="4" min="1" max="20" step="1">
+                                <div class="param-footer">
+                                    <span class="param-range">1 – 20</span>
+                                    <span class="param-default">Default: 4</span>
+                                </div>
+                                <p class="param-desc">Higher values model more complex signals but increase computation time.</p>
+                            </div>
+
+                            <div class="param-card">
+                                <div class="param-header">
+                                    <label for="eta">Detection Threshold</label>
+                                    <span class="param-symbol">η</span>
+                                </div>
+                                <input type="number" id="eta" name="eta"
+                                       value="3.5" min="0.5" max="10" step="0.1">
+                                <div class="param-footer">
+                                    <span class="param-range">0.5 – 10</span>
+                                    <span class="param-default">Default: 3.5</span>
+                                </div>
+                                <p class="param-desc">Lower = more sensitive (detects more clicks). Higher = more conservative.</p>
+                            </div>
+
+                            <div class="param-card">
+                                <div class="param-header">
+                                    <label for="forgetting-factor">Forgetting Factor</label>
+                                    <span class="param-symbol">λ</span>
+                                </div>
+                                <input type="number" id="forgetting-factor" name="forgetting_factor"
+                                       value="0.99" min="0.9" max="0.999" step="0.001">
+                                <div class="param-footer">
+                                    <span class="param-range">0.9 – 0.999</span>
+                                    <span class="param-default">Default: 0.99</span>
+                                </div>
+                                <p class="param-desc">Controls adaptation speed. Closer to 1 = slower but more stable adaptation.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn-primary btn-process" id="process-btn" disabled>
+                        <div class="btn-bg"></div>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                        </svg>
+                        <span>Process Audio</span>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Progress Section -->
+        <section class="glass-card progress-section" id="progress-section" style="display: none;">
+            <div class="card-glow card-glow-active"></div>
+            <div class="card-content">
+                <div class="section-header">
+                    <div class="processing-spinner">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spinner-svg">
+                            <path d="M21 12a9 9 0 11-6.219-8.56"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="section-title">Processing Audio</h2>
+                        <p class="section-subtitle">Analyzing and removing impulsive noise...</p>
+                    </div>
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill" style="width: 0%">
+                            <div class="progress-shimmer"></div>
+                        </div>
+                    </div>
+                    <div class="progress-info">
+                        <span class="progress-percent" id="progress-percent">0%</span>
+                        <span class="progress-message" id="progress-message">Starting...</span>
+                    </div>
+                </div>
+
+                <div class="processing-visualization">
+                    <div class="wave-bars">
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section class="glass-card results-section" id="results-section" style="display: none;">
+            <div class="card-glow card-glow-success"></div>
+            <div class="card-content">
+                <div class="section-header">
+                    <div class="success-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="section-title">Processing Complete</h2>
+                        <p class="section-subtitle">Your audio has been cleaned successfully</p>
+                    </div>
+                </div>
+
+                <!-- Statistics -->
+                <div class="stats-grid" id="stats-grid">
+                    <!-- Populated by JavaScript -->
+                </div>
+
+                <!-- Audio Comparison -->
+                <div class="audio-comparison" id="audio-comparison">
+                    <h3 class="subsection-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                        </svg>
+                        Audio Comparison
+                    </h3>
+                    <div class="audio-players">
+                        <div class="audio-player-card original">
+                            <div class="player-label">
+                                <span class="player-dot original-dot"></span>
+                                Original Audio
+                            </div>
+                            <audio controls id="original-audio"></audio>
+                        </div>
+                        <div class="audio-player-card cleaned">
+                            <div class="player-label">
+                                <span class="player-dot cleaned-dot"></span>
+                                Cleaned Audio
+                            </div>
+                            <audio controls id="cleaned-audio"></audio>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <a href="#" class="btn-primary btn-download" id="download-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                        <span>Download Cleaned Audio</span>
+                    </a>
+                    <button type="button" class="btn-secondary" id="new-file-btn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="1 4 1 10 7 10"/>
+                            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                        </svg>
+                        <span>Process Another File</span>
+                    </button>
+                </div>
+
+                <!-- Analysis Plots -->
+                <div class="plots-section">
+                    <h3 class="subsection-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="20" x2="18" y2="10"/>
+                            <line x1="12" y1="20" x2="12" y2="4"/>
+                            <line x1="6" y1="20" x2="6" y2="14"/>
+                        </svg>
+                        Analysis Plots
+                    </h3>
+
+                    <div class="plot-tabs">
+                        <button class="tab-btn active" data-tab="overview">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="3" y1="9" x2="21" y2="9"/>
+                                <line x1="9" y1="21" x2="9" y2="9"/>
+                            </svg>
+                            Overview
+                        </button>
+                        <button class="tab-btn" data-tab="waveform">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                            </svg>
+                            Waveform
+                        </button>
+                        <button class="tab-btn" data-tab="error">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="12" y1="8" x2="12" y2="12"/>
+                                <line x1="12" y1="16" x2="12.01" y2="16"/>
+                            </svg>
+                            Error & Threshold
+                        </button>
+                        <button class="tab-btn" data-tab="ar_coeffs">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                                <polyline points="17 6 23 6 23 12"/>
+                            </svg>
+                            AR Coefficients
+                        </button>
+                    </div>
+
+                    <div class="plot-container" id="plot-container">
+                        <div class="plot-panel active" id="plot-overview">
+                            <img id="plot-img-overview" alt="Full Waveform Overview" loading="lazy">
+                        </div>
+                        <div class="plot-panel" id="plot-waveform">
+                            <img id="plot-img-waveform" alt="Waveform Comparison" loading="lazy">
+                        </div>
+                        <div class="plot-panel" id="plot-error">
+                            <img id="plot-img-error" alt="Prediction Error" loading="lazy">
+                        </div>
+                        <div class="plot-panel" id="plot-ar_coeffs">
+                            <img id="plot-img-ar_coeffs" alt="AR Coefficients" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Error Section -->
+        <section class="glass-card error-section" id="error-section" style="display: none;">
+            <div class="card-glow card-glow-error"></div>
+            <div class="card-content">
+                <div class="section-header">
+                    <div class="error-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="15" y1="9" x2="9" y2="15"/>
+                            <line x1="9" y1="9" x2="15" y2="15"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="section-title">Processing Failed</h2>
+                        <p class="section-subtitle">Something went wrong during processing</p>
+                    </div>
+                </div>
+                <div class="error-message-box">
+                    <p class="error-message" id="error-message"></p>
+                </div>
+                <button type="button" class="btn-secondary btn-retry" id="retry-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="1 4 1 10 7 10"/>
+                        <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                    </svg>
+                    <span>Try Again</span>
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 18V5l12-2v13"/>
+                        <circle cx="6" cy="18" r="3"/>
+                        <circle cx="18" cy="16" r="3"/>
+                    </svg>
+                    <span>NoiseRemover</span>
+                </div>
+                <div class="footer-info">
+                    <p>Impulsive Noise Removal using Adaptive AR Model with EW-LS Algorithm</p>
+                    <p class="footer-credits">
+                        Built by <strong>Digna David</strong> (206959) · SI Project · Gdańsk University of Technology
+                        · Supervisor: Piotr Kaczmarek
+                    </p>
+                </div>
+                <div class="footer-tech">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Flask</span>
+                    <span class="tech-tag">NumPy</span>
+                    <span class="tech-tag">SciPy</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.min.js"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
